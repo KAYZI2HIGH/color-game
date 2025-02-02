@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import GamePlayer from "./components/GamePlayer";
+import ResultMessage from "./components/ResultMessage";
+import Actions from "./components/Actions";
 
 const COLORS = [
   "#FF6B6B",
@@ -44,7 +47,7 @@ const App = () => {
       setIsCorrect(null);
     }
     setTimeout(() => {
-      setIsCorrect(null)
+      setIsCorrect(null);
     }, 1500);
   };
   return (
@@ -52,49 +55,15 @@ const App = () => {
       <div className="container">
         <div className="header">
           <h1>color game</h1>
-          <p>Can you guess the correct color? Choose from the options below!</p>
+          <p data-testid="gameInstructions">
+            Can you guess the correct color? Choose from the options below!
+          </p>
         </div>
-        <div className="actions">
-          <h1 className="score">Score: {score}</h1>
-          <button
-            className="new-game"
-            onClick={() => setScore(0)}
-          >
-            new game
-          </button>
-        </div>
-        <div className="game-player">
-          <div className="target">
-            <h1>Target Color: ???</h1>
-            <div
-              className="target-color"
-              style={{ backgroundColor: targetColor }}
-            ></div>
-          </div>
-          <div className="option">
-            <h1>Options:</h1>
-            <div className="options-grid">
-              {options.map((option) => (
-                <button
-                  className="options"
-                  style={{ backgroundColor: option }}
-                  onClick={() => {
-                    compareColors(option);
-                  }}
-                ></button>
-              ))}
-            </div>
-          </div>
-        </div>
+        <Actions score={score} setScore={setScore}/>
+        <GamePlayer options={options} targetColor={targetColor} compareColors={compareColors}/>
       </div>
       {isCorrect !== null && (
-        <div className="backdrop">
-          {isCorrect ? (
-            <div className="popup correct">✅ Correct</div>
-          ) : (
-            <div className="popup wrong">❌ Try Again!</div>
-          )}
-        </div>
+       <ResultMessage isCorrect={isCorrect}/>
       )}
     </>
   );
