@@ -99,6 +99,11 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
 }
+@media screen and (max-width: 460px) {
+  .options-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
 .options {
   height: 100px;
   border-radius: 10px;
